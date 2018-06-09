@@ -1,0 +1,41 @@
+clone_folder: C:\M
+
+environment:
+  PATH: C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Program Files\Git\cmd;C:\Program Files\7-Zip
+  DEPLOY_PROVIDER: bintray
+  BINTRAY_USER: jeroen
+  BINTRAY_TARGET: rtools
+  BINTRAY_REPOSITORY: distrib  
+  BINTRAY_PACKAGE: installer
+  matrix:
+    - MSYS_VERSION: msys32
+    - MSYS_VERSION: msys64
+
+matrix:
+  fast_finish: true
+
+install:
+    - ps: Import-Module .\scripts.ps1
+    - ps: rtools_bootstrap
+
+build_script:
+  - C:\%MSYS_VERSION%\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/make-rtools-installer.sh"
+
+test: off
+
+artifacts:
+  - path: msys2-base-*.xz
+
+deploy:
+  - provider: BinTray
+    username: $(BINTRAY_USER)
+    subject: $(BINTRAY_TARGET)
+    repo: $(BINTRAY_REPOSITORY)
+    package: $(BINTRAY_PACKAGE)
+    version: latest
+    publish: true
+    override: true
+    api_key:
+      secure: rKoNWcAgUrOM7QLX4cEvA1iKoY2DR4ps/1PRveq7rJknjQjcpKx8xGs42CJPhDwJ
+    on:
+      branch: master
