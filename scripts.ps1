@@ -19,7 +19,7 @@ Function InstallMSYS32 {
 
 function bash($command) {
     Write-Host $command -NoNewline
-    cmd /c start /wait C:\msys32\usr\bin\sh.exe --login -c $command
+    cmd /c start /wait "C:\$($env:MSYS_VERSION)\usr\bin\sh.exe" --login -c $command
     Write-Host " - OK" -ForegroundColor Green
 }
 
@@ -29,11 +29,12 @@ function msys32boostrap {
 		bash 'pacman -Sy --noconfirm pacman pacman-mirrors'
 		bash 'pacman -Syu --noconfirm'
 		bash 'pacman -Syu --noconfirm'
-	}	
+	}
 }
 
 function rtools_bootstrap {
 	msys32boostrap
+	bash 'pacman --version'
 	bash 'pacman --noconfirm -Rcsu mingw-w64-x86_64-toolchain mingw-w64-i686-toolchain'
 	bash 'repman add rtools "https://dl.bintray.com/rtools/${MSYSTEM_CARCH}"'
 	bash 'pacman --noconfirm --sync rtools/pacman-mirrors rtools/pacman rtools/tar'
@@ -42,3 +43,17 @@ function rtools_bootstrap {
 	bash 'pacman --noconfirm -Scc'
 	bash 'pacman --noconfirm --ask 20 -Syyu'
 }
+
+Function InstallInno {
+  $inno_url = "http://files.jrsoftware.org/is/5/innosetup-5.5.9-unicode.exe"
+
+  Progress ("Downloading InnoSetup from: " + $inno_url)
+  & "C:\Program Files\Git\mingw64\bin\curl.exe" -s -o ../innosetup.exe -L $inno_url
+
+  Progress "Installig InnoSetup"
+  Start-Process -FilePath ..\innosetup.exe -ArgumentList /SILENT -NoNewWindow -Wait
+
+  Progress "InnoSetup installation: Done"
+  Get-ItemProperty "C:\Program Files (x86)\Inno Setup 5\ISCC.exe"
+}
+
