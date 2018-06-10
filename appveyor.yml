@@ -16,7 +16,7 @@ matrix:
 
 install:
     - ps: Import-Module .\scripts.ps1
-    - ps: rtools_bootstrap
+    - ps: bootstrap
 
 build_script:
   - C:\%MSYS_VERSION%\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/make-rtools-installer.sh"

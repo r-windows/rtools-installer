@@ -48,7 +48,7 @@ create_chroot_system() {
     mkdir -p tmp
 
     eval "pacman -Syu --root \"${_newmsys}\"" | tee -a ${_log}
-    eval "pacman -S mintty msys2-launcher-git pacman make tar texinfo texinfo-tex patch diffutils gawk grep rebase zip unzip gzip mingw-w64-{i686,x86_64}-gcc-fortran --noconfirm --root \"${_newmsys}\"" | tee -a ${_log}
+    eval "pacman -S libxml2 mintty msys2-launcher-git pacman make tar texinfo texinfo-tex patch diffutils gawk grep rebase zip unzip gzip mingw-w64-{i686,x86_64}-gcc-fortran --noconfirm --root \"${_newmsys}\"" | tee -a ${_log}
     _result=$?
     if [ "${_result}" -ne "0" ]; then
       exit_cleanly "1" "failed to create newmsys2 via command 'pacman -S base --noconfirm --root ${_newmsys}'"

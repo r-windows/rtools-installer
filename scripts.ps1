@@ -57,3 +57,7 @@ Function InstallInno {
   Get-ItemProperty "C:\Program Files (x86)\Inno Setup 5\ISCC.exe"
 }
 
+function bootstrap {
+	rtools_bootstrap
+	InstallInno
+}
