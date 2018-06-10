@@ -47,13 +47,13 @@ function rtools_bootstrap {
 Function InstallInno {
   $inno_url = "http://files.jrsoftware.org/is/5/innosetup-5.5.9-unicode.exe"
 
-  Progress ("Downloading InnoSetup from: " + $inno_url)
+  Write-Host "Downloading InnoSetup from: " + $inno_url
   & "C:\Program Files\Git\mingw64\bin\curl.exe" -s -o ../innosetup.exe -L $inno_url
 
-  Progress "Installig InnoSetup"
+  Write-Host "Installig InnoSetup..."
   Start-Process -FilePath ..\innosetup.exe -ArgumentList /SILENT -NoNewWindow -Wait
 
-  Progress "InnoSetup installation: Done"
+  Write-Host "InnoSetup installation: Done" -ForegroundColor Green
   Get-ItemProperty "C:\Program Files (x86)\Inno Setup 5\ISCC.exe"
 }
 
