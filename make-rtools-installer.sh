@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+_rtools_mingw_pkgs="mingw-w64-{i686,x86_64}-{gcc-fortran,icu,xz,curl,cairo}"
+_rtools_msys_pkgs="findutils libxml2 mintty msys2-launcher-git pacman make tar texinfo texinfo-tex patch diffutils gawk grep rebase zip unzip gzip"
+
 _thisdir="$(dirname $0)"
 test "${_thisdir}" = "." && _thisdir=${PWD}
 _arch=$(uname -m)
@@ -12,8 +15,9 @@ if [ "${_arch}" = "x86_64" ]; then
 else
   _bitness=32
 fi
+_newbasename="rtools${_bitness}"
 _newmsysbase=/tmp/newmsys
-_newmsys=${_newmsysbase}/msys"${_bitness}"
+_newmsys="${_newmsysbase}/${_newbasename}"
 
 create_archives() {
   local _dirs=
@@ -25,7 +29,7 @@ create_archives() {
 
   if [ -n "${_dirs}" ]; then
     pushd ${_newmsysbase} > /dev/null
-      local _compress_cmd2="/usr/bin/tar --transform='s/:/_/g' --dereference --hard-dereference -cJf ${_thisdir}/${_filename2} msys${_bitness}"
+      local _compress_cmd2="/usr/bin/tar --transform='s/:/_/g' --dereference --hard-dereference -cJf ${_thisdir}/${_filename2} ${_newbasename}"
       echo "Run: ${_compress_cmd2} ..." | tee -a ${_log}
       eval "${_compress_cmd2}" 2>&1 | tee -a ${_log}
       _result=$?
@@ -48,7 +52,7 @@ create_chroot_system() {
     mkdir -p tmp
 
     eval "pacman -Syu --root \"${_newmsys}\"" | tee -a ${_log}
-    eval "pacman -S findutils libxml2 mintty msys2-launcher-git pacman make tar texinfo texinfo-tex patch diffutils gawk grep rebase zip unzip gzip mingw-w64-{i686,x86_64}-gcc-fortran --noconfirm --root \"${_newmsys}\"" | tee -a ${_log}
+    eval "pacman -S ${_rtools_msys_pkgs} ${_rtools_mingw_pkgs} --noconfirm --root \"${_newmsys}\"" | tee -a ${_log}
     _result=$?
     if [ "${_result}" -ne "0" ]; then
       exit_cleanly "1" "failed to create newmsys2 via command 'pacman -S base --noconfirm --root ${_newmsys}'"
