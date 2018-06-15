@@ -9,7 +9,7 @@ _arch=$(uname -m)
 _date=$(date +'%Y%m%d')
 _version=${_date}
 _filename2=rtools-${_arch}-${_date}.tar.xz
-_log=/tmp/installer-${_arch}-${_date}.log
+
 if [ "${_arch}" = "x86_64" ]; then
   _bitness=64
   _rtools_mingw_pkgs="mingw-w64-{i686,x86_64}-{gcc-fortran,pkg-config}"
@@ -17,9 +17,12 @@ else
   _bitness=32
   _rtools_mingw_pkgs="mingw-w64-i686-{gcc-fortran,pkg-config}"
 fi
+
+#_newmsysbase=/tmp/newmsys
+_newmsysbase="${_thisdir}/build"
 _newbasename="rtools${_bitness}"
-_newmsysbase=/tmp/newmsys
 _newmsys="${_newmsysbase}/${_newbasename}"
+_log="${_thisdir}/installer-${_arch}-${_date}.log"
 
 create_archives() {
   local _dirs=

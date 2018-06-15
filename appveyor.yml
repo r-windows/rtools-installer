@@ -1,5 +1,3 @@
-clone_folder: C:\M
-
 environment:
   PATH: C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Program Files\Git\cmd;C:\Program Files\7-Zip
   DEPLOY_PROVIDER: bintray
@@ -10,6 +8,8 @@ environment:
   matrix:
     - MSYS_VERSION: msys32
     - MSYS_VERSION: msys64
+
+clone_folder: C:\%MSYS_VERSION%\home\betty
 
 matrix:
   fast_finish: true
@@ -25,6 +25,7 @@ test: off
 
 artifacts:
   - path: rtools-*tar.xz
+  - path: installer*.log
 
 deploy:
   - provider: BinTray
