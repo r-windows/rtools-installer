@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-_rtools_mingw_pkgs="mingw-w64-{i686,x86_64}-{gcc-fortran,icu,xz,curl,cairo}"
+# rtools support pkgs (toolchains below)
 _rtools_msys_pkgs="findutils libxml2 mintty msys2-launcher-git pacman make tar texinfo texinfo-tex patch diffutils gawk grep rebase zip unzip gzip"
 
 _thisdir="$(dirname $0)"
@@ -8,12 +8,14 @@ test "${_thisdir}" = "." && _thisdir=${PWD}
 _arch=$(uname -m)
 _date=$(date +'%Y%m%d')
 _version=${_date}
-_filename2=msys2-base-${_arch}-${_date}.tar.xz
+_filename2=rtools-${_arch}-${_date}.tar.xz
 _log=/tmp/installer-${_arch}-${_date}.log
 if [ "${_arch}" = "x86_64" ]; then
   _bitness=64
+  _rtools_mingw_pkgs="mingw-w64-{i686,x86_64}-{gcc-fortran,pkg-config}"
 else
   _bitness=32
+  _rtools_mingw_pkgs="mingw-w64-i686-{gcc-fortran,pkg-config}"
 fi
 _newbasename="rtools${_bitness}"
 _newmsysbase=/tmp/newmsys
