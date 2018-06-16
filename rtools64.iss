@@ -10,6 +10,7 @@ DefaultDirName=C:\rtools40
 DefaultGroupName=Rtools
 ;InfoBeforeFile=docs\Rtools.txt
 SetupIconFile=favicon.ico
+WizardSmallImageFile=r-windows-110.bmp
 OutputBaseFilename=Rtools64
 Compression=lzma/ultra
 SolidCompression=yes
