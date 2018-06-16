@@ -16,12 +16,8 @@ PrivilegesRequired=none
 ChangesEnvironment=yes
 UsePreviousAppDir=no
 DirExistsWarning=no
-
-[Code]
-function MinRVersion(Param: String): String;
-begin
-  result := '3.5.0';
-end;
+ArchitecturesAllowed=x64
+ArchitecturesInstallIn64BitMode=x64
   
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -49,7 +45,29 @@ Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
 Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [CustomMessages]
-AlreadyExists=Directory already exists: %1 %n%nPlease uninstall previous installation of rtools 40 or select another location.
+AlreadyExists=Target directory already exists: %1 %n%nPlease remove previous installation or select another location.
+
+[Tasks]
+;Name: setPath; Description: "Add rtools to system PATH"; Flags: unchecked; Check: IsAdmin
+Name: recordversion; Description: "Save version information to registry"
+
+[Registry]
+Root: HKLM; Subkey: "Software\R-core"; Flags: uninsdeletekeyifempty; Tasks: recordversion; Check: IsAdmin
+Root: HKLM; Subkey: "Software\R-core\Rtools"; Flags: uninsdeletekeyifempty; Tasks: recordversion; Check: IsAdmin
+Root: HKLM; Subkey: "Software\R-core\Rtools"; Flags: uninsdeletevalue; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"; Tasks: recordversion; Check: IsAdmin
+Root: HKLM; Subkey: "Software\R-core\Rtools"; Flags: uninsdeletevalue; ValueType: string; ValueName: "Current Version"; ValueData: "{code:SetupVer}"; Tasks: recordversion; Check: IsAdmin
+Root: HKLM; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; Flags: uninsdeletekey; Tasks: recordversion; Check: IsAdmin
+Root: HKLM; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"; Tasks: recordversion; Check: IsAdmin
+Root: HKLM; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; Flags: uninsdeletevalue; ValueType: string; ValueName: "FullVersion"; ValueData: "{code:FullVersion}"; Tasks: recordversion; Check: IsAdmin
+
+; Non-admin users in write to HKCU
+Root: HKCU; Subkey: "Software\R-core"; Flags: uninsdeletekeyifempty; Tasks: recordversion; Check: NonAdmin
+Root: HKCU; Subkey: "Software\R-core\Rtools"; Flags: uninsdeletekeyifempty; Tasks: recordversion; Check: NonAdmin
+Root: HKCU; Subkey: "Software\R-core\Rtools"; Flags: uninsdeletevalue; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"; Tasks: recordversion; Check: NonAdmin
+Root: HKCU; Subkey: "Software\R-core\Rtools"; Flags: uninsdeletevalue; ValueType: string; ValueName: "Current Version"; ValueData: "{code:SetupVer}"; Tasks: recordversion; Check: NonAdmin
+Root: HKCU; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; Flags: uninsdeletekey; Tasks: recordversion; Check: NonAdmin
+Root: HKCU; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"; Tasks: recordversion; Check: NonAdmin
+Root: HKCU; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; Flags: uninsdeletevalue; ValueType: string; ValueName: "FullVersion"; ValueData: "{code:FullVersion}"; Tasks: recordversion; Check: NonAdmin
 
 [Files]
 Source: "build\rtools64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs 
@@ -66,5 +84,25 @@ begin
         Result := False;
         exit;
     end;
+end;
+
+function SetupVer(Param: String): String;
+begin
+  result := '{#SetupSetting("AppVersion")}';
+end;
+
+function FullVersion(Param: String): String;
+begin
+  result := '{#SetupSetting("VersionInfoVersion")}';
+end;
+
+function IsAdmin: boolean;
+begin
+  Result := IsAdminLoggedOn or IsPowerUserLoggedOn;
+end;
+
+function NonAdmin: boolean;
+begin
+  Result := not IsAdmin;
 end;
 

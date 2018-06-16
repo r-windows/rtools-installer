@@ -20,12 +20,14 @@ install:
 
 build_script:
   - C:\%MSYS_VERSION%\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/make-rtools-installer.sh"
+  - ps: InnoBuild
 
 test: off
 
 artifacts:
   - path: rtools-*tar.xz
   - path: installer*.log
+  - path: Output\*.exe
 
 deploy:
   - provider: BinTray

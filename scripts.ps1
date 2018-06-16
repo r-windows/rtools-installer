@@ -57,6 +57,16 @@ Function InstallInno {
   Get-ItemProperty "C:\Program Files (x86)\Inno Setup 5\ISCC.exe"
 }
 
+function InnoBuild($iss){
+	if($env:MSYS_VERSION -eq 'msys64') {
+		Write-Host "Creating installer..." -NoNewline
+		& "C:\Program Files (x86)\Inno Setup 5\iscc.exe" rtools64.iss | Out-File output.log
+		Write-Host "OK!" -ForegroundColor Green
+	} else {
+		Write-Host "No 32bit yet..." -ForegroundColor Green
+	}
+}
+
 function bootstrap {
 	rtools_bootstrap
 	InstallInno
