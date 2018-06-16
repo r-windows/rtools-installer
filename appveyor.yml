@@ -7,7 +7,9 @@ environment:
   BINTRAY_PACKAGE: installer
   matrix:
     - MSYS_VERSION: msys32
+      RTOOLS_NAME: rtools32
     - MSYS_VERSION: msys64
+      RTOOLS_NAME: rtools64
 
 clone_folder: C:\%MSYS_VERSION%\home\betty
 
@@ -19,14 +21,14 @@ install:
     - ps: bootstrap
 
 build_script:
-  - C:\%MSYS_VERSION%\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/make-rtools-installer.sh"
+  - C:\%MSYS_VERSION%\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/make-rtools-chroot.sh"
   - ps: InnoBuild
+  - 7z a %RTOOLS_NAME%.7z .\build\%RTOOLS_NAME%\
 
 test: off
 
 artifacts:
-  - path: rtools-*tar.xz
-  - path: installer*.log
+  - path: rtools*.7z
   - path: Output\*.exe
 
 deploy:

@@ -68,5 +68,5 @@ create_chroot_system() {
 rm -f "${_log}"
 echo "Creating MSYS2 chroot system ${_newmsys}" | tee -a ${_log}
 create_chroot_system
-create_archives
+#create_archives
 exit 0
