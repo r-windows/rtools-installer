@@ -67,6 +67,17 @@ function InnoBuild($iss){
 	}
 }
 
+function CheckExitCode($msg) {
+  if ($LastExitCode -ne 0) {
+    Throw $msg
+  }
+}
+
+function SignFiles($files) {
+  & $env:SignTool sign /f $env:KeyFile /p "$env:CertPassword" /tr http://sha256timestamp.ws.symantec.com/sha256/timestamp /td sha256 /fd sha256 $files
+  CheckExitCode "Failed to sign files."
+}
+
 function bootstrap {
 	rtools_bootstrap
 	InstallInno

@@ -9,6 +9,12 @@ environment:
       RTOOLS_NAME: rtools32
     - MSYS_VERSION: msys64
       RTOOLS_NAME: rtools64
+  PfxUri:
+    secure: z+vP1iY4odY07BV7v+yfuA2MBKQFFLGokZoefPhz22evsMT/KnwtB4NgcYNLJheI
+  CertPassword:
+    secure: nwSwtaLCl6Xo5sfqKLvO30aFFGCgjGJ2GKTqS33zkJg=
+  SignTool: C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe
+  KeyFile: C:\jeroen.pfx
 
 clone_folder: C:\%MSYS_VERSION%\home\installer
 
@@ -23,6 +29,11 @@ build_script:
   - C:\%MSYS_VERSION%\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/make-rtools-chroot.sh"
   - ps: InnoBuild
   - 7z a %RTOOLS_NAME%.7z .\build\%RTOOLS_NAME%\
+
+after_build:
+  - ps: Start-FileDownload $env:PfxUri -FileName $env:KeyFile
+  - ps: SignFiles "Output\*.exe"
+  - ps: Remove-Item –path $env:KeyFile
 
 test: off
 
