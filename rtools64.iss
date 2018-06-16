@@ -9,6 +9,7 @@ AppUpdatesURL=https://cran.r-project.org/bin/windows/Rtools
 DefaultDirName=C:\rtools40
 DefaultGroupName=Rtools
 ;InfoBeforeFile=docs\Rtools.txt
+SetupIconFile=favicon.ico
 OutputBaseFilename=Rtools64
 Compression=lzma/ultra
 SolidCompression=yes
@@ -16,6 +17,7 @@ PrivilegesRequired=none
 ChangesEnvironment=yes
 UsePreviousAppDir=no
 DirExistsWarning=no
+DisableProgramGroupPage=yes
 ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
   
@@ -50,6 +52,7 @@ AlreadyExists=Target directory already exists: %1 %n%nPlease remove previous ins
 [Tasks]
 ;Name: setPath; Description: "Add rtools to system PATH"; Flags: unchecked; Check: IsAdmin
 Name: recordversion; Description: "Save version information to registry"
+Name: createStartMenu; Description: "Create start-menu icons to msys2 shells"
 
 [Registry]
 Root: HKLM; Subkey: "Software\R-core"; Flags: uninsdeletekeyifempty; Tasks: recordversion; Check: IsAdmin
@@ -71,6 +74,14 @@ Root: HKCU; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; Flags: uninsdelete
 
 [Files]
 Source: "build\rtools64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs 
+
+[Run]
+Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: "Initiate rtools repositories"; Flags: nowait postinstall
+
+[Icons]
+Name: "{group}\MSYS2 + MinGW 32-bit"; Filename: "{app}\mingw32.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
+Name: "{group}\MSYS2 + MinGW 64-bit"; Filename: "{app}\mingw64.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
+Name: "{group}\MSYS2 only"; Filename: "{app}\msys2.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}"
