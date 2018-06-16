@@ -1,8 +1,8 @@
-# Rtools Installer Bundle [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-windows/installer)](https://ci.appveyor.com/project/jeroen/installer)
+# Rtools Installer Bundle [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-windows/rtools-installer)](https://ci.appveyor.com/project/jeroen/rtools-installer)
 
 > Build the Rtools bundle archive and installer.
 
-Simple [script](make-rtools-installer.sh) to setup a blank msys2 environment in a chroot dir. Based on [msys2-installer](https://github.com/msys2/msys2-installer) code, but using inno setup instead of qt-installer-framework.
+Simple [script](make-rtools-chroot.sh) to setup a new msys2 environment in a chroot dir. Based on [msys2-installer](https://github.com/msys2/msys2-installer) code, but using inno setup instead of qt-installer-framework.
 
 ## About Rtools40
 

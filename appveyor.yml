@@ -3,15 +3,14 @@ environment:
   DEPLOY_PROVIDER: bintray
   BINTRAY_USER: jeroen
   BINTRAY_TARGET: rtools
-  BINTRAY_REPOSITORY: distrib  
-  BINTRAY_PACKAGE: installer
+  BINTRAY_REPOSITORY: installer  
   matrix:
     - MSYS_VERSION: msys32
       RTOOLS_NAME: rtools32
     - MSYS_VERSION: msys64
       RTOOLS_NAME: rtools64
 
-clone_folder: C:\%MSYS_VERSION%\home\betty
+clone_folder: C:\%MSYS_VERSION%\home\installer
 
 matrix:
   fast_finish: true
@@ -36,7 +35,7 @@ deploy:
     username: $(BINTRAY_USER)
     subject: $(BINTRAY_TARGET)
     repo: $(BINTRAY_REPOSITORY)
-    package: $(BINTRAY_PACKAGE)
+    package: $(RTOOLS_NAME)
     version: latest
     publish: true
     override: true
