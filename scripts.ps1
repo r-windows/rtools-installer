@@ -58,13 +58,9 @@ Function InstallInno {
 }
 
 function InnoBuild($iss){
-	if($env:MSYS_VERSION -eq 'msys64') {
-		Write-Host "Creating installer..." -NoNewline
-		& "C:\Program Files (x86)\Inno Setup 5\iscc.exe" rtools64.iss | Out-File output.log
-		Write-Host "OK!" -ForegroundColor Green
-	} else {
-		Write-Host "No 32bit yet..." -ForegroundColor Green
-	}
+	Write-Host "Creating installer..." -NoNewline
+	& "C:\Program Files (x86)\Inno Setup 5\iscc.exe" "${env:RTOOLS_NAME}.iss" | Out-File output.log
+	Write-Host "OK!" -ForegroundColor Green
 }
 
 function CheckExitCode($msg) {
