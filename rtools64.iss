@@ -80,9 +80,9 @@ Source: "build\rtools64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdir
 Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: "Initiate rtools repositories"; Flags: nowait postinstall
 
 [Icons]
-Name: "{group}\MSYS2 + MinGW 32-bit"; Filename: "{app}\mingw32.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
-Name: "{group}\MSYS2 + MinGW 64-bit"; Filename: "{app}\mingw64.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
-Name: "{group}\MSYS2 only"; Filename: "{app}\msys2.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
+Name: "{group}\Rtools MinGW 32-bit"; Filename: "{app}\mingw32.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
+Name: "{group}\Rtools MinGW 64-bit"; Filename: "{app}\mingw64.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
+Name: "{group}\Rtools only"; Filename: "{app}\msys2.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}"

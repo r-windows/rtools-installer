@@ -67,6 +67,8 @@ create_chroot_system() {
     # Change user home directory to match Windows
     echo "Patching nsswitch.conf"
     sed -i 's/db_home: cygwin desc/db_home: windows #cygwin desc/' /etc/nsswitch.conf
+    echo "OK:"
+    cat /etc/nsswitch.conf
   popd > /dev/null
 }
 
