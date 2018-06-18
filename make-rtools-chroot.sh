@@ -60,7 +60,8 @@ create_chroot_system() {
     eval "pacman -S ${_rtools_msys_pkgs} ${_rtools_mingw_pkgs} --noconfirm --root \"${_newmsys}\"" | tee -a ${_log}
     _result=$?
     if [ "${_result}" -ne "0" ]; then
-      exit_cleanly "1" "failed to create newmsys2 via command 'pacman -S base --noconfirm --root ${_newmsys}'"
+      echo "failed to create msys2 chroot in ${_newmsys}"
+      exit 1
     fi
 
     # Change user home directory to match Windows
