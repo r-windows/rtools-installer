@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # rtools support pkgs (toolchains below)
-_rtools_msys_pkgs="findutils libxml2 mintty msys2-launcher-git pacman curl make tar texinfo texinfo-tex patch diffutils gawk grep rebase zip unzip gzip"
+_rtools_msys_pkgs="findutils libxml2 libexpat mintty msys2-launcher-git pacman curl make tar texinfo texinfo-tex patch diffutils gawk grep rebase zip unzip gzip"
 
 _thisdir="$(dirname $0)"
 test "${_thisdir}" = "." && _thisdir=${PWD}
@@ -69,6 +69,10 @@ create_chroot_system() {
     sed -i 's/db_home: cygwin desc/db_home: windows #cygwin desc/' ./etc/nsswitch.conf
     echo "OK:"
     cat ./etc/nsswitch.conf
+
+    # Creating ls aliases
+    echo "Copy aliases.sh"
+    cp "${_thisdir}/aliases.sh" ./etc/profile.d/
   popd > /dev/null
 }
 
