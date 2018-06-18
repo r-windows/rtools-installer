@@ -62,6 +62,10 @@ create_chroot_system() {
     if [ "${_result}" -ne "0" ]; then
       exit_cleanly "1" "failed to create newmsys2 via command 'pacman -S base --noconfirm --root ${_newmsys}'"
     fi
+
+    # Change user home directory to match Windows
+    echo "Patching nsswitch.conf"
+    sed -i 's/db_home: cygwin desc/db_home: windows #cygwin desc/' /etc/nsswitch.conf
   popd > /dev/null
 }
 
