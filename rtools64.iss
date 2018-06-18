@@ -11,7 +11,7 @@ DefaultGroupName=Rtools 4.0
 ;InfoBeforeFile=docs\Rtools.txt
 SetupIconFile=favicon.ico
 WizardSmallImageFile=icon-small.bmp
-OutputBaseFilename=Rtools64
+OutputBaseFilename=rtools40-x86_64
 Compression=lzma/ultra
 SolidCompression=yes
 PrivilegesRequired=none
@@ -46,6 +46,9 @@ Name: "serbian_latin"; MessagesFile: "compiler:Languages\SerbianLatin.isl"
 Name: "slovenian"; MessagesFile: "compiler:Languages\Slovenian.isl"
 Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
 Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
+
+[Messages]
+OnlyOnTheseArchitectures=The 64-bit installer cannot be used on 32-bit Windows. Please downloaded the 32-bit Rtools installer from CRAN.
 
 [CustomMessages]
 AlreadyExists=Target directory already exists: %1 %n%nPlease remove previous installation or select another location.
@@ -116,14 +119,4 @@ end;
 function NonAdmin: boolean;
 begin
   Result := not IsAdmin;
-end;
-
-function InitializeSetup(): Boolean;
-begin
-  Result := True;
-  if not IsWin64 then
-  begin
-    SuppressibleMsgBox('You cannot use the 64-bit version of Rtools on 32-bit Windows. Please downloaded the 32-bit Rtools installer from CRAN.', mbError, MB_OK, MB_OK);
-    Result := False;
-  end;
 end;
