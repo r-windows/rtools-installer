@@ -84,7 +84,7 @@ Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: 
 
 [Icons]
 Name: "{group}\Rtools MinGW 32-bit"; Filename: "{app}\mingw32.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
-Name: "{group}\Rtools only"; Filename: "{app}\msys2.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
+Name: "{group}\Rtools Bash"; Filename: "{app}\msys2.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}"

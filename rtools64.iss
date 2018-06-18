@@ -80,12 +80,13 @@ Root: HKCU; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; Flags: uninsdelete
 Source: "build\rtools64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs 
 
 [Run]
-Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: "Init Rtools repositories"; Flags: postinstall
+;Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: "Init Rtools repositories"; Flags: postinstall
+Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: "Init Rtools repositories"; Flags: nowait runhidden
 
 [Icons]
 Name: "{group}\Rtools MinGW 32-bit"; Filename: "{app}\mingw32.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
 Name: "{group}\Rtools MinGW 64-bit"; Filename: "{app}\mingw64.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
-Name: "{group}\Rtools only"; Filename: "{app}\msys2.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
+Name: "{group}\Rtools Bash"; Filename: "{app}\msys2.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}"
