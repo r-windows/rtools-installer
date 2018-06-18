@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # rtools support pkgs (toolchains below)
-_rtools_msys_pkgs="findutils libxml2 mintty msys2-launcher-git pacman make tar texinfo texinfo-tex patch diffutils gawk grep rebase zip unzip gzip"
+_rtools_msys_pkgs="findutils libxml2 mintty msys2-launcher-git pacman curl make tar texinfo texinfo-tex patch diffutils gawk grep rebase zip unzip gzip"
 
 _thisdir="$(dirname $0)"
 test "${_thisdir}" = "." && _thisdir=${PWD}
@@ -66,9 +66,9 @@ create_chroot_system() {
 
     # Change user home directory to match Windows
     echo "Patching nsswitch.conf"
-    sed -i 's/db_home: cygwin desc/db_home: windows #cygwin desc/' /etc/nsswitch.conf
+    sed -i 's/db_home: cygwin desc/db_home: windows #cygwin desc/' ./etc/nsswitch.conf
     echo "OK:"
-    cat /etc/nsswitch.conf
+    cat ./etc/nsswitch.conf
   popd > /dev/null
 }
 

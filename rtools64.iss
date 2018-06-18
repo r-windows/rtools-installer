@@ -77,7 +77,7 @@ Root: HKCU; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; Flags: uninsdelete
 Source: "build\rtools64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs 
 
 [Run]
-Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: "Init Rtools repositories"; Flags: postinstall runhidden
+Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: "Init Rtools repositories"; Flags: postinstall
 
 [Icons]
 Name: "{group}\Rtools MinGW 32-bit"; Filename: "{app}\mingw32.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
@@ -118,3 +118,12 @@ begin
   Result := not IsAdmin;
 end;
 
+function InitializeSetup(): Boolean;
+begin
+  Result := True;
+  if not IsWin64 then
+  begin
+    SuppressibleMsgBox('You cannot use the 64-bit version of Rtools on 32-bit Windows. Please downloaded the 32-bit Rtools installer from CRAN.', mbError, MB_OK, MB_OK);
+    Result := False;
+  end;
+end;

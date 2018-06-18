@@ -77,7 +77,7 @@ Source: "build\rtools32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdir
 
 [Run]
 Filename: "{app}\autorebase.bat"; Description: "Rebase 32bit dll files (recommended)"; Flags: shellexec
-Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: "Init rtools repositories"; Flags: postinstall runhidden
+Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: "Init rtools repositories"; Flags: postinstall
 
 [Icons]
 Name: "{group}\Rtools MinGW 32-bit"; Filename: "{app}\mingw32.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
@@ -117,3 +117,12 @@ begin
   Result := not IsAdmin;
 end;
 
+function InitializeSetup(): Boolean;
+begin
+  Result := True;
+  if IsWin64 then
+  begin
+    SuppressibleMsgBox('You should not use the 32-bit version of Rtools on 64-bit Windows. Please downloaded the 64-bit Rtools installer from CRAN.', mbError, MB_OK, MB_OK);
+    Result := False;
+  end;
+end;
