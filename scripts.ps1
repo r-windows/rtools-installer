@@ -39,7 +39,7 @@ function rtools_bootstrap {
 	bash 'repman add rtools "https://dl.bintray.com/rtools/${MSYSTEM_CARCH}"'
 	bash 'pacman --noconfirm --sync rtools/pacman-mirrors rtools/pacman rtools/tar'
 	bash 'mv /etc/pacman.conf /etc/pacman.conf.old'
-	bash 'mv /etc/pacman.conf.pacnew /etc/pacman.conf'	
+	bash 'mv /etc/pacman.conf.pacnew /etc/pacman.conf'
 	bash 'pacman --noconfirm -Scc'
 	bash 'pacman --noconfirm --ask 20 -Syyu'
 }

@@ -7,7 +7,7 @@ AppPublisherURL=https://cran.r-project.org/bin/windows/Rtools
 AppSupportURL=https://cran.r-project.org/bin/windows/Rtools
 AppUpdatesURL=https://cran.r-project.org/bin/windows/Rtools
 DefaultDirName=C:\rtools40
-DefaultGroupName=Rtools
+DefaultGroupName=Rtools 4.0
 ;InfoBeforeFile=docs\Rtools.txt
 SetupIconFile=favicon.ico
 WizardSmallImageFile=icon-small.bmp
@@ -77,7 +77,7 @@ Source: "build\rtools32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdir
 
 [Run]
 Filename: "{app}\autorebase.bat"; Description: "Rebase 32bit dll files (recommended)"; Flags: shellexec
-Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: "Initiate rtools repositories"; Flags: nowait postinstall
+Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: "Init rtools repositories"; Flags: postinstall runhidden
 
 [Icons]
 Name: "{group}\Rtools MinGW 32-bit"; Filename: "{app}\mingw32.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
