@@ -27,8 +27,8 @@ function msys32boostrap {
 	if($env:MSYS_VERSION -eq 'msys32') {
 		InstallMSYS32
 		bash 'pacman -Sy --noconfirm pacman pacman-mirrors'
-		bash 'pacman -Syu --noconfirm'
-		bash 'pacman -Syu --noconfirm'
+		#bash 'pacman -Syu --noconfirm'
+		#bash 'pacman -Syu --noconfirm'
 	}
 }
 
@@ -75,9 +75,9 @@ function SignFiles($files) {
 }
 
 function bootstrap {
-	#rtools_bootstrap
+	rtools_bootstrap
 	InstallInno
-	InstallRtools
+	#InstallRtools
 }
 
 Function InstallRtools {
