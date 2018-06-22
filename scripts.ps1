@@ -75,6 +75,23 @@ function SignFiles($files) {
 }
 
 function bootstrap {
-	rtools_bootstrap
+	#rtools_bootstrap
 	InstallInno
+	InstallRtools
+}
+
+Function InstallRtools {
+  $rtoolsurl = "https://dl.bintray.com/rtools/installer/rtools40-${env:MSYSTEM_CARCH}.exe"
+
+  Write-Host "Downloading InnoSetup from: " + $rtoolsurl
+  & "C:\Program Files\Git\mingw64\bin\curl.exe" -s -o ../installer.exe -L $rtoolsurl
+
+  Write-Host "Installig Rtools 4.0..."
+  Start-Process -FilePath ..\installer.exe -ArgumentList /SILENT -NoNewWindow -Wait
+
+  Write-Host "InnoSetup installation: Done" -ForegroundColor Green
+
+  #Write-Host "Setting PATH"
+  #$env:PATH = 'C:\rtools40\usr\bin;' + $env:PATH
+  #$env:BINPREF = 'C:/rtools40/mingw$(WIN)/bin/'
 }
