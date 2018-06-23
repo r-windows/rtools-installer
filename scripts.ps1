@@ -27,8 +27,9 @@ function msys32boostrap {
 	if($env:MSYS_VERSION -eq 'msys32') {
 		InstallMSYS32
 		bash 'pacman -Sy --noconfirm pacman pacman-mirrors'
-		#bash 'pacman -Syu --noconfirm'
-		#bash 'pacman -Syu --noconfirm'
+
+		# May upgrade runtime, need to exit afterwards
+		bash 'pacman -Syyuu --noconfirm --ask 20'
 	}
 }
 
