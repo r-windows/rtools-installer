@@ -7,8 +7,11 @@ environment:
   matrix:
     - MSYS_VERSION: msys32
       RTOOLS_NAME: rtools32
+      RTOOLS_ARCH: i686
     - MSYS_VERSION: msys64
       RTOOLS_NAME: rtools64
+      RTOOLS_ARCH: x86_64
+
   PfxUri:
     secure: z+vP1iY4odY07BV7v+yfuA2MBKQFFLGokZoefPhz22evsMT/KnwtB4NgcYNLJheI
   CertPassword:
@@ -28,7 +31,7 @@ install:
 build_script:
   - C:\%MSYS_VERSION%\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/make-rtools-chroot.sh"
   - ps: InnoBuild
-  - 7z a %RTOOLS_NAME%.7z .\build\%RTOOLS_NAME%\
+  - 7z a rtools40-%RTOOLS_ARCH%.7z .\build\rtools40\
 
 after_build:
   - ps: Start-FileDownload $env:PfxUri -FileName $env:KeyFile

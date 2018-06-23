@@ -21,7 +21,7 @@ fi
 
 #_newmsysbase=/tmp/newmsys
 _newmsysbase="${_thisdir}/build"
-_newbasename="rtools${_bitness}"
+_newbasename="rtools40"
 _newmsys="${_newmsysbase}/${_newbasename}"
 _log="${_thisdir}/installer-${_arch}-${_date}.log"
 
