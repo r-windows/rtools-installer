@@ -19,17 +19,18 @@ environment:
   SignTool: C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe
   KeyFile: C:\jeroen.pfx
 
-clone_folder: C:\%MSYS_VERSION%\home\installer
+clone_folder: C:\rtools40\home\installer
 
 matrix:
   fast_finish: true
 
 install:
     - ps: Import-Module .\scripts.ps1
-    - ps: bootstrap
+    - ps: InstallRtools
+    - ps: InstallInno
 
 build_script:
-  - C:\%MSYS_VERSION%\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/make-rtools-chroot.sh"
+  - C:\rtools40\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/make-rtools-chroot.sh"
   - ps: InnoBuild
   - 7z a rtools40-%RTOOLS_ARCH%.7z .\build\rtools40\
 

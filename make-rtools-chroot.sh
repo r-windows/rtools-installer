@@ -2,7 +2,7 @@
 
 # rtools support pkgs (toolchains below)
 # Potential risk of PATH conflicts: curl, perl (via texinfo texinfo-tex), gpg
-_rtools_msys_pkgs="file findutils libxml2 libexpat mintty msys2-launcher-git pacman curl make tar texinfo texinfo-tex patch diffutils gawk grep rebase zip unzip gzip"
+_rtools_msys_pkgs="file bsdtar findutils libxml2 libexpat mintty msys2-launcher-git pacman curl make tar texinfo texinfo-tex patch diffutils gawk grep rebase zip unzip gzip"
 
 _thisdir="$(dirname $0)"
 test "${_thisdir}" = "." && _thisdir=${PWD}
