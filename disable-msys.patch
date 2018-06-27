@@ -1,0 +1,10 @@
+--- etc/pacman.conf     2018-06-24 17:42:27.000000000 +0000
++++ /etc/pacman.conf.new        2018-06-27 15:03:18.662423600 +0000
+@@ -79,5 +79,5 @@ Include = /etc/pacman.d/mirrorlist.mingw
+ Include = /etc/pacman.d/mirrorlist.mingw64
+
+ ## 3rd party msys2 packages (rtools hackers only!)
+-[msys]
+-Include = /etc/pacman.d/mirrorlist.msys
++#[msys]
++#Include = /etc/pacman.d/mirrorlist.msys

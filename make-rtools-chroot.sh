@@ -67,13 +67,17 @@ create_chroot_system() {
 
     # Change user home directory to match Windows
     echo "Patching nsswitch.conf"
-    sed -i 's/db_home: cygwin desc/db_home: windows #cygwin desc/' ./etc/nsswitch.conf
+    sed -i 's/db_home: cygwin/db_home: windows #cygwin/' ./etc/nsswitch.conf
     echo "OK:"
     cat ./etc/nsswitch.conf
 
     # Creating ls aliases
     echo "Copy aliases.sh"
     cp "${_thisdir}/aliases.sh" ./etc/profile.d/
+
+    # Comments out upstream msys2 repos
+    patch -p0 -i ${_thisdir}/disable-msys.patch
+
   popd > /dev/null
 }
 
