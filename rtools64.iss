@@ -11,7 +11,7 @@ DefaultGroupName=Rtools 4.0 (beta)
 UninstallDisplayName=Rtools 4.0 (beta)
 ;InfoBeforeFile=docs\Rtools.txt
 SetupIconFile=favicon.ico
-UninstallDisplayIcon=favicon.ico
+UninstallDisplayIcon={app}\mingw64.exe
 WizardSmallImageFile=icon-small.bmp
 OutputBaseFilename=rtools40-x86_64
 Compression=lzma/ultra
@@ -23,7 +23,7 @@ DirExistsWarning=no
 DisableProgramGroupPage=yes
 ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
-  
+
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"

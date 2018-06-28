@@ -25,6 +25,9 @@ _newbasename="rtools40"
 _newmsys="${_newmsysbase}/${_newbasename}"
 _log="${_thisdir}/installer-${_arch}-${_date}.log"
 
+# Revert patch: enable upstream msys2
+patch -d/ -R -p0 -i ${_thisdir}/disable-msys.patch
+
 create_archives() {
   local _dirs=
   for curr_dir in /etc /var /tmp /usr /mingw32 /mingw64 /msys2_shell.cmd /msys2.exe /mingw32.exe /mingw64.exe /msys2.ini /mingw32.ini /mingw64.ini /msys2.ico /autorebase.bat autorebasebase1st.bat; do
@@ -84,5 +87,12 @@ create_chroot_system() {
 rm -f "${_log}"
 echo "Creating MSYS2 chroot system ${_newmsys}" | tee -a ${_log}
 create_chroot_system
-#create_archives
-exit 0
+
+# Test that it worked
+if [ -f "${_newmsys}/mingw32/bin/gcc.exe" ]; then
+  echo "Success!"
+  exit 0
+else
+  echo "Failed to install rtools in chroot :("
+  exit 1
+fi
