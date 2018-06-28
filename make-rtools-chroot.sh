@@ -78,8 +78,8 @@ create_chroot_system() {
     echo "Copy aliases.sh"
     cp "${_thisdir}/aliases.sh" ./etc/profile.d/
 
-    # Comments out upstream msys2 repos
-    patch -p0 -i ${_thisdir}/disable-msys.patch
+    # Comments out upstream msys2 (is now hardcoded in pacman)
+    # patch -p0 -i ${_thisdir}/disable-msys.patch
 
   popd > /dev/null
 }
