@@ -1,7 +1,7 @@
 [Setup]
 AppName=Rtools
 AppVersion=4.0
-VersionInfoVersion=4.0.0.1
+VersionInfoVersion=4.0.0.2
 AppPublisher=The R Foundation
 AppPublisherURL=https://cran.r-project.org/bin/windows/Rtools
 AppSupportURL=https://cran.r-project.org/bin/windows/Rtools
@@ -68,6 +68,7 @@ Root: HKLM; Subkey: "Software\R-core\Rtools"; Flags: uninsdeletevalue; ValueType
 Root: HKLM; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; Flags: uninsdeletekey; Tasks: recordversion; Check: IsAdmin
 Root: HKLM; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"; Tasks: recordversion; Check: IsAdmin
 Root: HKLM; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; Flags: uninsdeletevalue; ValueType: string; ValueName: "FullVersion"; ValueData: "{code:FullVersion}"; Tasks: recordversion; Check: IsAdmin
+Root: HKLM; Subkey: SYSTEM\CurrentControlSet\Control\Session Manager\Environment; ValueType: expandsz; Flags: uninsdeletevalue; ValueName: RTOOLS_HOME; ValueData: "{app}"
 
 ; Non-admin users in write to HKCU
 Root: HKCU; Subkey: "Software\R-core"; Flags: uninsdeletekeyifempty; Tasks: recordversion; Check: NonAdmin
@@ -77,6 +78,7 @@ Root: HKCU; Subkey: "Software\R-core\Rtools"; Flags: uninsdeletevalue; ValueType
 Root: HKCU; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; Flags: uninsdeletekey; Tasks: recordversion; Check: NonAdmin
 Root: HKCU; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"; Tasks: recordversion; Check: NonAdmin
 Root: HKCU; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; Flags: uninsdeletevalue; ValueType: string; ValueName: "FullVersion"; ValueData: "{code:FullVersion}"; Tasks: recordversion; Check: NonAdmin
+Root: HKCU; Subkey: Environment; ValueType: expandsz; Flags: uninsdeletevalue; ValueName: RTOOLS_HOME; ValueData: "{app}"
 
 [Files]
 Source: "build\rtools40\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs 

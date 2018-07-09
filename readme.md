@@ -1,6 +1,9 @@
-# Rtools Installer Bundle [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-windows/rtools-installer)](https://ci.appveyor.com/project/jeroen/rtools-installer)
+# Rtools Installer Bundle 
 
-> Build the Rtools bundle archive and installer.
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-windows/rtools-installer?svg=true)](https://ci.appveyor.com/project/jeroen/rtools-installer) 
+[![Download](https://api.bintray.com/packages/rtools/installer/rtools64/images/download.svg)](https://dl.bintray.com/rtools/installer/rtools40-x86_64.exe)
+
+> Builds the Rtools archive and installer
 
 Simple [script](make-rtools-chroot.sh) to setup a new msys2 environment in a chroot dir. Based on [msys2-installer](https://github.com/msys2/msys2-installer) code, but using inno setup instead of qt-installer-framework.
 
@@ -9,7 +12,7 @@ Simple [script](make-rtools-chroot.sh) to setup a new msys2 environment in a chr
 This is the windows toolchain and build environment for the R project. The current branch is based on:
 
  - gcc 8.1.0 (dwarf, seh)
- - mingw-w64 5.0.4
+ - mingw-w64 v5
  - winpthreads
 
 Rtools40 uses the [msys2](https://www.msys2.org/) build environment. One major benefit is that msys2 includes a fantastic package manager `pacman` that we can use to properly build, distribute, and install external c/c++ libraries for CRAN packages. Go try it :-)
@@ -26,11 +29,11 @@ The major difference between rtools and the upstream msys2 distribution is that 
 
 ## How to use
 
-The toolchains are installed in `C:\rtools\mingw32` and `C:\rtools\mingw64`. Within these directories there is the usual `bin` for executables, and `include`, `lib` for libraries. These directories are completely managed by the package manager `pacman`. You should not manually add/remove files here, `pacman` will automatically install the proper files when installing or uninstalling packages.
+The toolchains are installed in `C:\rtools40\mingw32` and `C:\rtools40\mingw64`. Within these directories there is the usual `bin` for executables, and `include`, `lib` for libraries. These directories are completely managed by the package manager `pacman`. You should not manually add/remove files here, `pacman` will automatically install the proper files when installing or uninstalling packages.
 
 You also don't have to pass special paths to the compiler when building R-base or R packages. The compiler has been configured to automatically find the proper headers and libraries that have been installed with pacman.
 
-The rtools build utilities (`make`, `sh`, `sed`, etc) are installed `C:\rtools\usr\bin`. This location should be on the PATH when building. Anything in rtools under `C:\rtools\usr` is only used for running rtools itself; it will not be picked up by the toolchains.
+The rtools build utilities (`make`, `sh`, `sed`, etc) are installed `C:\rtools40\usr\bin`. This location should be on the PATH when building. Anything in rtools under `C:\rtools\usr` is only used for running rtools itself; it will not be picked up by the toolchains.
 
 
 ## Installing packages
