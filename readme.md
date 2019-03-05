@@ -11,11 +11,11 @@ Simple [script](make-rtools-chroot.sh) to setup a new msys2 environment in a chr
 
 This is the windows toolchain and build environment for the R project. The current branch is based on:
 
- - gcc 8.1.0 (dwarf, seh)
+ - gcc 8.3.0 (dwarf, seh)
  - mingw-w64 v5
  - winpthreads
 
-Rtools40 uses the [msys2](https://www.msys2.org/) build environment. One major benefit is that msys2 includes a fantastic package manager `pacman` that we can use to properly build, distribute, and install external c/c++ libraries for CRAN packages. Go try it :-)
+Rtools40 uses the [msys2](https://www.msys2.org/) build environment. One major benefit is that msys2 includes a fantastic package manager `pacman` that we can use to properly build, distribute, and install external c/c++ libraries for CRAN packages.
 
 ```sh
 # Sync with repositories
