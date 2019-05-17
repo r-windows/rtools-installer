@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Set our custom repositories
+scriptdir=$(dirname "$0")
+cp -f "${scriptdir}/dummy.conf" /etc/pacman.conf
+pacman -Syy
+
 # rtools support pkgs (toolchains below)
 # Potential risk of PATH conflicts: curl, perl (via texinfo texinfo-tex), gpg
 _rtools_msys_pkgs="file bsdtar findutils libxml2 libexpat mintty msys2-launcher-git pacman curl make tar texinfo texinfo-tex patch diffutils gawk grep rebase zip unzip gzip"
@@ -24,9 +29,6 @@ _newmsysbase="${_thisdir}/build"
 _newbasename="rtools40"
 _newmsys="${_newmsysbase}/${_newbasename}"
 _log="${_thisdir}/installer-${_arch}-${_date}.log"
-
-# Revert patch: enable upstream msys2
-patch -d/ -R -p0 -i ${_thisdir}/disable-msys.patch
 
 create_archives() {
   local _dirs=

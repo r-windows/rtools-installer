@@ -51,25 +51,37 @@ function bash($command) {
 function InstallRtools {
 	InstallRtoolsZip
 	bash 'pacman -Sy --noconfirm pacman pacman-mirrors'
-	bash 'pacman -Syyu --noconfirm --ask 20'
+	#bash 'pacman -Syyu --noconfirm --ask 20'
 }
 
 Function InstallInno {
-  Write-Host "Downloading InnoSetup from: " + $INNO_MIRROR
-  & "C:\Program Files\Git\mingw64\bin\curl.exe" -s -o ../innosetup.exe -L $INNO_MIRROR
-  CheckExitCode "Failed to download $INNO_MIRROR"
+  $inno_url = "http://jrsoftware.org/download.php/is.exe?site=2"
 
-  Write-Host "Installig InnoSetup..."
-  Start-Process -FilePath ..\innosetup.exe -ArgumentList /SILENT -NoNewWindow -Wait
-  CheckExitCode "Failed to install InnoSetup"
+  Progress ("Downloading InnoSetup from: " + $inno_url)
+  & "C:\Program Files\Git\mingw64\bin\curl.exe" -s -o ../innosetup.exe -L $inno_url
 
-  Write-Host "InnoSetup installation: Done" -ForegroundColor Green
-  Get-ItemProperty "C:\Program Files (x86)\Inno Setup 5\ISCC.exe"
+  Progress "Installig InnoSetup"
+  Start-Process -FilePath ..\innosetup.exe -ArgumentList "/ALLUSERS /SILENT" -NoNewWindow -Wait
+
+  Progress "InnoSetup installation: Done"
+  Get-ItemProperty "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+}
+
+Function Progress {
+    [CmdletBinding()]
+    param (
+        [Parameter(Position=0, Mandatory=0)]
+        [string]$Message = ""
+    )
+
+    $ProgressMessage = '== ' + (Get-Date) + ': ' + $Message
+
+    Write-Host $ProgressMessage -ForegroundColor Magenta
 }
 
 function InnoBuild($iss){
 	Write-Host "Creating installer..." -NoNewline
-	& "C:\Program Files (x86)\Inno Setup 5\iscc.exe" "${env:RTOOLS_NAME}.iss" | Out-File output.log
+	& "C:\Program Files (x86)\Inno Setup 6\iscc.exe" "${env:RTOOLS_NAME}.iss" | Out-File output.log
 	Write-Host "OK!" -ForegroundColor Green
 }
 
