@@ -31,6 +31,7 @@ install:
 
 build_script:
   - C:\%MSYS_VERSION%\usr\bin\bash --login -c exit
+  - C:\%MSYS_VERSION%\usr\bin\pacman --noconfirm -Syyu
   - C:\%MSYS_VERSION%\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/make-rtools-chroot.sh"
   - ps: InnoBuild
   - 7z a rtools40-%RTOOLS_ARCH%.7z .\build\rtools40\
