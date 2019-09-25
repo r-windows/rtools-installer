@@ -26,13 +26,13 @@ matrix:
 
 install:
     - ps: Import-Module .\scripts.ps1
-    - ps: InstallMSYS32
+    - ps: InstallRtoolsZip
     - ps: InstallInno
 
 build_script:
-  - C:\%MSYS_VERSION%\usr\bin\bash --login -c exit
-  - C:\%MSYS_VERSION%\usr\bin\pacman --noconfirm -Syyu
-  - C:\%MSYS_VERSION%\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/make-rtools-chroot.sh"
+  - xcopy /y dummy.conf C:\rtools40\etc\pacman.conf
+  - C:\rtools40\usr\bin\pacman --noconfirm -Syyu
+  - C:\rtools40\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/make-rtools-chroot.sh"
   - ps: InnoBuild
   - 7z a rtools40-%RTOOLS_ARCH%.7z .\build\rtools40\
 
