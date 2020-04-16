@@ -1,14 +1,14 @@
 [Setup]
 AppName=Rtools
 AppVersion=4.0
-VersionInfoVersion=4.0.0.23
+VersionInfoVersion=4.0.0.24
 AppPublisher=The R Foundation
 AppPublisherURL=https://cran.r-project.org/bin/windows/Rtools
 AppSupportURL=https://cran.r-project.org/bin/windows/Rtools
 AppUpdatesURL=https://cran.r-project.org/bin/windows/Rtools
 DefaultDirName=C:\rtools40
-DefaultGroupName=Rtools 4.0 (beta 23)
-UninstallDisplayName=Rtools 4.0 (beta 23)
+DefaultGroupName=Rtools 4.0 (beta 24)
+UninstallDisplayName=Rtools 4.0 (beta 24)
 ;InfoBeforeFile=docs\Rtools.txt
 SetupIconFile=favicon.ico
 UninstallDisplayIcon={app}\mingw32.exe
