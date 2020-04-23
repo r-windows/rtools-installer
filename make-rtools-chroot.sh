@@ -76,9 +76,10 @@ create_chroot_system() {
     echo "OK:"
     cat ./etc/nsswitch.conf
 
-    # Creating ls aliases
-    echo "Copy aliases.sh"
+    # Adding scripts to user profile
+    echo "Copy aliases.sh gitbin.sh"
     cp "${_thisdir}/aliases.sh" ./etc/profile.d/
+    cp "${_thisdir}/gitbin.sh" ./etc/profile.d/
 
     # Comments out upstream msys2 (is now hardcoded in pacman)
     # patch -p0 -i ${_thisdir}/disable-msys.patch
