@@ -18,10 +18,10 @@ _filename2=rtools-${_arch}-${_date}.tar.xz
 
 if [ "${_arch}" = "x86_64" ]; then
   _bitness=64
-  _rtools_mingw_pkgs="mingw-w64-{i686,x86_64}-{gcc-fortran,pkg-config}"
+  _rtools_mingw_pkgs="mingw-w64-{i686,x86_64}-{gcc-fortran,pkg-config,tools}"
 else
   _bitness=32
-  _rtools_mingw_pkgs="mingw-w64-i686-{gcc-fortran,pkg-config}"
+  _rtools_mingw_pkgs="mingw-w64-i686-{gcc-fortran,pkg-config,tools}"
 fi
 
 #_newmsysbase=/tmp/newmsys
