@@ -2,12 +2,12 @@
 
 # Set our custom repositories
 scriptdir=$(dirname "$0")
-cp -f "${scriptdir}/dummy.conf" /etc/pacman.conf
+cp -f "${scriptdir}/pacman-bootstrap.conf" /etc/pacman.conf
 pacman -Syy
 
 # rtools support pkgs (toolchains below)
 # Potential risk of PATH conflicts: curl, perl (via texinfo texinfo-tex), gpg
-_rtools_msys_pkgs="rsync winpty file bsdtar findutils libxml2 libexpat mintty msys2-launcher-git pacman curl make tar texinfo texinfo-tex patch diffutils gawk grep rebase zip unzip gzip"
+_rtools_msys_pkgs="rsync winpty file bsdtar findutils libxml2 libexpat mintty msys2-launcher pacman curl make tar texinfo texinfo-tex patch diffutils gawk grep rebase zip unzip gzip"
 
 _thisdir="$(dirname $0)"
 test "${_thisdir}" = "." && _thisdir=${PWD}
@@ -32,7 +32,7 @@ _log="${_thisdir}/installer-${_arch}-${_date}.log"
 
 create_archives() {
   local _dirs=
-  for curr_dir in /etc /var /tmp /usr /mingw32 /mingw64 /msys2_shell.cmd /msys2.exe /mingw32.exe /mingw64.exe /msys2.ini /mingw32.ini /mingw64.ini /msys2.ico /autorebase.bat autorebasebase1st.bat; do
+  for curr_dir in /etc /var /tmp /usr /mingw32 /mingw64 /ucrt64 /msys2_shell.cmd /msys2.exe /mingw32.exe /mingw64.exe /ucrt64.exe /msys2.ini /mingw32.ini /mingw64.ini /ucrt64.ini /msys2.ico /mingw32.ico /mingw64.ico /ucrt64.ico /autorebase.bat autorebasebase1st.bat; do
     if [[ -d ${_newmsys}${curr_dir} || -f ${_newmsys}${curr_dir} ]]; then
       _dirs="${_dirs} ${_newmsys}$curr_dir"
     fi

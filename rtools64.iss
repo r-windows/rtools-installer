@@ -1,14 +1,14 @@
 [Setup]
 AppName=Rtools
 AppVersion=4.0
-VersionInfoVersion=4.0.0.28
+VersionInfoVersion=4.0.1.0
 AppPublisher=The R Foundation
 AppPublisherURL=https://cran.r-project.org/bin/windows/Rtools
 AppSupportURL=https://cran.r-project.org/bin/windows/Rtools
 AppUpdatesURL=https://cran.r-project.org/bin/windows/Rtools
 DefaultDirName=C:\rtools40
 DefaultGroupName=Rtools 4.0
-UninstallDisplayName=Rtools 4.0 (4.0.0.28)
+UninstallDisplayName=Rtools 4.0 (4.0.1.0)
 ;InfoBeforeFile=docs\Rtools.txt
 SetupIconFile=favicon.ico
 UninstallDisplayIcon={app}\mingw64.exe
@@ -69,6 +69,7 @@ Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: 
 [Icons]
 Name: "{group}\Rtools MinGW 32-bit"; Filename: "{app}\mingw32.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
 Name: "{group}\Rtools MinGW 64-bit"; Filename: "{app}\mingw64.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
+Name: "{group}\Rtools MinGW 64-bit (UCRT)"; Filename: "{app}\ucrt64.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
 Name: "{group}\Rtools Bash"; Filename: "{app}\msys2.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
 Name: "{group}\Uninstall Rtools"; Filename: "{uninstallexe}"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall; IconFilename: {sys}\Shell32.dll; IconIndex: 31
 

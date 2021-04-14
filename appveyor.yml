@@ -1,16 +1,10 @@
+clone_folder: C:\msys64\home\installer
+image: Visual Studio 2019
+
 environment:
   PATH: C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Program Files\Git\cmd;C:\Program Files\7-Zip
-  DEPLOY_PROVIDER: bintray
-  BINTRAY_USER: jeroen
-  BINTRAY_TARGET: rtools
-  BINTRAY_REPOSITORY: installer  
-  matrix:
-    - MSYS_VERSION: msys32
-      RTOOLS_NAME: rtools32
-      RTOOLS_ARCH: i686
-    - MSYS_VERSION: msys64
-      RTOOLS_NAME: rtools64
-      RTOOLS_ARCH: x86_64
+  RTOOLS_ARCH: x86_64
+  INSTALLER: rtools64.iss
 
   PfxUri:
     secure: z+vP1iY4odY07BV7v+yfuA2MBKQFFLGokZoefPhz22ewYZAm6XZ8jsdphTFYkn7L
@@ -19,20 +13,15 @@ environment:
   SignTool: C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe
   KeyFile: C:\jeroen.pfx
 
-clone_folder: C:\%MSYS_VERSION%\home\installer
-
-matrix:
-  fast_finish: true
-
 install:
     - ps: Import-Module .\scripts.ps1
-    - ps: InstallRtoolsZip
+    - ps: UpdateMSYS2
     - ps: InstallInno
 
 build_script:
-  - xcopy /y dummy.conf C:\rtools40\etc\pacman.conf
-  - C:\rtools40\usr\bin\pacman --noconfirm -Syyu
-  - C:\rtools40\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/make-rtools-chroot.sh"
+  - xcopy /y pacman-bootstrap.conf C:\msys64\etc\pacman.conf
+  - C:\msys64\usr\bin\pacman --noconfirm -Syyu
+  - C:\msys64\usr\bin\bash --login -c "$(cygpath ${APPVEYOR_BUILD_FOLDER})/make-rtools-chroot.sh"
   - ps: InnoBuild
   - 7z a rtools40-%RTOOLS_ARCH%.7z .\build\rtools40\
 
@@ -46,17 +35,3 @@ test: off
 artifacts:
   - path: rtools*.7z
   - path: Output\*.exe
-
-deploy:
-  - provider: BinTray
-    username: $(BINTRAY_USER)
-    subject: $(BINTRAY_TARGET)
-    repo: $(BINTRAY_REPOSITORY)
-    package: $(RTOOLS_NAME)
-    version: latest
-    publish: true
-    override: true
-    api_key:
-      secure: rKoNWcAgUrOM7QLX4cEvA1iKoY2DR4ps/1PRveq7rJknjQjcpKx8xGs42CJPhDwJ
-    on:
-      branch: master

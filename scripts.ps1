@@ -10,10 +10,8 @@ $RTOOLS_MIRROR = "https://dl.bintray.com/rtools/installer/"
 # $RTOOLS_MIRROR = "https://ftp.opencpu.org/archive/rtools/4.0/"
 
 ### InnoSetup Mirror
-$INNO_MIRROR = "http://jrsoftware.org/download.php/is-unicode.exe?site=2"
-# $INNO_MIRROR = "https://github.com/jrsoftware/issrc/releases/download/is-5_6_1/innosetup-5.6.1-unicode.exe"
-# $INNO_MIRROR = "https://mlaan2.home.xs4all.nl/ispack/innosetup-5.6.1-unicode.exe"
-# $INNO_MIRROR = "http://files.jrsoftware.org/is/5/innosetup-5.6.1-unicode.exe"
+# $INNO_MIRROR = "http://jrsoftware.org/download.php/is-unicode.exe?site=2"
+$INNO_MIRROR = "http://files.jrsoftware.org/is/6/innosetup-6.0.4.exe"
 
 function CheckExitCode($msg) {
   if ($LastExitCode -ne 0) {
@@ -55,15 +53,15 @@ function InstallRtools {
 }
 
 Function InstallInno {
-  $inno_url = "http://jrsoftware.org/download.php/is.exe?site=2"
+  Write-Host "Downloading InnoSetup from: " + $INNO_MIRROR
+  & "C:\Program Files\Git\mingw64\bin\curl.exe" -s -o ../innosetup.exe -L $INNO_MIRROR
+  CheckExitCode "Failed to download $INNO_MIRROR"
 
-  Progress ("Downloading InnoSetup from: " + $inno_url)
-  & "C:\Program Files\Git\mingw64\bin\curl.exe" -s -o ../innosetup.exe -L $inno_url
-
-  Progress "Installig InnoSetup"
+  Write-Host "Installig InnoSetup..."
   Start-Process -FilePath ..\innosetup.exe -ArgumentList "/ALLUSERS /SILENT" -NoNewWindow -Wait
+  CheckExitCode "Failed to install InnoSetup"
 
-  Progress "InnoSetup installation: Done"
+  Write-Host "InnoSetup installation: Done" -ForegroundColor Green
   Get-ItemProperty "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
 }
 
@@ -81,7 +79,8 @@ Function Progress {
 
 function InnoBuild($iss){
 	Write-Host "Creating installer..." -NoNewline
-	& "C:\Program Files (x86)\Inno Setup 6\iscc.exe" "${env:RTOOLS_NAME}.iss" | Out-File output.log
+	& "C:\Program Files (x86)\Inno Setup 6\iscc.exe" "${env:INSTALLER}" | Out-File output.log
+	Copy-Item Output\rtools40-x86_64.exe
 	Write-Host "OK!" -ForegroundColor Green
 }
 
@@ -127,4 +126,10 @@ function rtools_bootstrap {
 	bash 'mv /etc/pacman.conf.pacnew /etc/pacman.conf'
 	bash 'pacman --noconfirm -Scc'
 	bash 'pacman --noconfirm --ask 20 -Syyu'
+}
+
+Function UpdateMSYS2 {
+	C:\msys64\usr\bin\pacman --noconfirm -Sy
+	C:\msys64\usr\bin\pacman --noconfirm --needed -S msys2-runtime msys2-runtime-devel mintty
+	C:\msys64\usr\bin\pacman --noconfirm --needed -S bash pacman
 }

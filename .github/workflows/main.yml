@@ -1,0 +1,62 @@
+name: main
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MSYS
+          install: git
+          update: true
+
+      - name: CI-Build
+        shell: msys2 {0}
+        run: |
+          cp -f pacman-bootstrap.conf /etc/pacman.conf
+          ./make-rtools-chroot.sh
+
+      - name: Create Installer
+        run: |
+          Import-Module .\scripts.ps1
+          InstallInno
+          InnoBuild
+          7z a rtools40-x86_64.7z .\build\rtools40\
+        env:
+          INSTALLER: rtools64.iss
+
+      - name: "Upload artifacts"
+        uses: actions/upload-artifact@v2
+        with:
+          name: installer
+          path: |
+            rtools40-x86_64.7z
+            rtools40-x86_64.exe
+
+  deploy:
+    name: Deploy to staging server
+    runs-on: ubuntu-20.04
+    needs: [build]
+    if: success() && github.ref == 'refs/heads/master'
+    steps:
+      - name: Get artifacts for deployment
+        uses: actions/download-artifact@v2
+      - id: deployment
+        name: Uploading files
+        run: |
+          ls -ltrR
+          eval $(ssh-agent -s)
+          ssh-add <(echo "$STAGINGKEY")
+          echo 'put -pr .' | sftp -oStrictHostKeyChecking=no "${STAGINGUSER}@ftp.opencpu.org:/rtools"
+          exit ${PIPESTATUS[1]}
+        env:
+          STAGINGUSER: ${{ secrets.STAGINGUSER }}
+          STAGINGKEY: ${{ secrets.STAGINGKEY }}
