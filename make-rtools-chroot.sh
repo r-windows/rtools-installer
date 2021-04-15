@@ -72,7 +72,7 @@ create_chroot_system() {
 
     # Remove cache files that need to be created by user
     eval "pacman -Scc --noconfirm --root \"${_newmsys}\""
-    rm -Rf "${_newmsys}/var/lib/pacman/sync" 
+    # rm -Rf "${_newmsys}/var/lib/pacman/sync" 
 
     # Change user home directory to match Windows
     echo "Patching nsswitch.conf"
