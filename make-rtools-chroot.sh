@@ -70,6 +70,10 @@ create_chroot_system() {
       exit 1
     fi
 
+    # Remove cache files that need to be created by user
+    eval "pacman -Scc --noconfirm --root \"${_newmsys}\""
+    rm -Rf "${_newmsys}/var/lib/pacman/sync" 
+
     # Change user home directory to match Windows
     echo "Patching nsswitch.conf"
     sed -i 's/db_home: cygwin/db_home: windows #cygwin/' ./etc/nsswitch.conf
