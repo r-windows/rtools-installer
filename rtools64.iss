@@ -17,7 +17,7 @@ OutputBaseFilename=rtools40-x86_64
 Compression=lzma/ultra
 SolidCompression=yes
 PrivilegesRequired=none
-PrivilegesRequiredOverridesAllowed=commandline
+PrivilegesRequiredOverridesAllowed=dialog
 ChangesEnvironment=yes
 UsePreviousAppDir=no
 DirExistsWarning=no
@@ -60,7 +60,7 @@ Root: HKCU; Subkey: "Software\R-core\Rtools\{code:SetupVer}"; Flags: uninsdelete
 Root: HKCU; Subkey: "Environment"; ValueType: expandsz; Flags: uninsdeletevalue; ValueName: RTOOLS40_HOME; ValueData: "{app}"; Check: NonAdmin
 
 [Files]
-Source: "build\rtools40\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Permissions: users-modify
+Source: "build\rtools40\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Run]
 ;Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: "Init Rtools repositories"; Flags: postinstall
