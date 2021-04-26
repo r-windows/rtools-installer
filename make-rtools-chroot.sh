@@ -15,7 +15,7 @@ _arch=$(uname -m)
 _date=$(date +'%Y%m%d')
 _version=${_date}
 _filename2=rtools-${_arch}-${_date}.tar.xz
-_rtools_mingw_pkgs="mingw-w64-{i686,x86_64}-{gcc-fortran,pkg-config,tools}"
+_rtools_mingw_pkgs="mingw-w64-{i686,x86_64,ucrt-x86_64}-{gcc-fortran,pkg-config,tools}"
 
 #_newmsysbase=/tmp/newmsys
 _newmsysbase="${_thisdir}/build"
