@@ -1,6 +1,4 @@
-# Rtools Installer Bundle 
-
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-windows/rtools-installer?svg=true)](https://ci.appveyor.com/project/jeroen/rtools-installer) 
+# Rtools Installer Bundle [![Build Status](https://github.com/r-windows/rtools-installer/actions/workflows/main.yml/badge.svg)](https://github.com/r-windows/rtools-installer/actions)
 
 > Builds the Rtools archive and installer
 
