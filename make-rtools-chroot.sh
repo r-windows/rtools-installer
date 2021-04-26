@@ -15,14 +15,7 @@ _arch=$(uname -m)
 _date=$(date +'%Y%m%d')
 _version=${_date}
 _filename2=rtools-${_arch}-${_date}.tar.xz
-
-if [ "${_arch}" = "x86_64" ]; then
-  _bitness=64
-  _rtools_mingw_pkgs="mingw-w64-{i686,x86_64}-{gcc-fortran,pkg-config,tools}"
-else
-  _bitness=32
-  _rtools_mingw_pkgs="mingw-w64-i686-{gcc-fortran,pkg-config,tools}"
-fi
+_rtools_mingw_pkgs="mingw-w64-{i686,x86_64}-{gcc-fortran,pkg-config,tools}"
 
 #_newmsysbase=/tmp/newmsys
 _newmsysbase="${_thisdir}/build"
@@ -63,7 +56,7 @@ create_chroot_system() {
     mkdir -p tmp
 
     eval "pacman -Syu --root \"${_newmsys}\"" | tee -a ${_log}
-    eval "pacman -S ${_rtools_msys_pkgs} ${_rtools_mingw_pkgs} --noconfirm --root \"${_newmsys}\"" | tee -a ${_log}
+    eval "pacman -S ${_rtools_msys_pkgs} ${_rtools_mingw_pkgs} mingw-w64-x86_64-qpdf --noconfirm --root \"${_newmsys}\"" | tee -a ${_log}
     _result=$?
     if [ "${_result}" -ne "0" ]; then
       echo "failed to create msys2 chroot in ${_newmsys}"
