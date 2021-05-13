@@ -22,8 +22,8 @@ ChangesEnvironment=yes
 UsePreviousAppDir=no
 DirExistsWarning=no
 DisableProgramGroupPage=yes
-ArchitecturesAllowed=x64
-ArchitecturesInstallIn64BitMode=x64
+ArchitecturesAllowed=x64 arm64
+ArchitecturesInstallIn64BitMode=x64 arm64
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
