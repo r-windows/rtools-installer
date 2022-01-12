@@ -7,3 +7,7 @@ alias ll='ls -l'
 
 # Recent versions of mintty set this variable, which R does not like
 unset LC_CTYPE
+
+# When running R inside rtools40 shell we need the corresponding toolchains
+export R_CUSTOM_TOOLS_PATH="$(cygpath -m /ucrt64/bin);$(cygpath -m /usr/bin)"
+export R_CUSTOM_TOOLS_SOFT="$(cygpath -m /ucrt64)"

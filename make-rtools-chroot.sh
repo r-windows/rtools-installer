@@ -56,7 +56,7 @@ create_chroot_system() {
     mkdir -p tmp
 
     eval "pacman -Syu --root \"${_newmsys}\"" | tee -a ${_log}
-    eval "pacman -S ${_rtools_msys_pkgs} ${_rtools_mingw_pkgs} mingw-w64-x86_64-qpdf --noconfirm --root \"${_newmsys}\"" | tee -a ${_log}
+    eval "pacman -S ${_rtools_msys_pkgs} ${_rtools_mingw_pkgs} mingw-w64-{x86_64,ucrt-x86_64}-qpdf --noconfirm --root \"${_newmsys}\"" | tee -a ${_log}
     _result=$?
     if [ "${_result}" -ne "0" ]; then
       echo "failed to create msys2 chroot in ${_newmsys}"
