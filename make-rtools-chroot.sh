@@ -77,6 +77,7 @@ create_chroot_system() {
     echo "Copy aliases.sh gitbin.sh"
     cp "${_thisdir}/aliases.sh" ./etc/profile.d/
     cp "${_thisdir}/gitbin.sh" ./etc/profile.d/
+    sed -i 's/^_warn_deprecated_winver;/#_warn_deprecated_winver;/g' ./etc/profile.d/000-msys2.sh
 
     # Comments out upstream msys2 (is now hardcoded in pacman)
     # patch -p0 -i ${_thisdir}/disable-msys.patch
