@@ -67,7 +67,7 @@ Filename: "{app}\usr\bin\bash.exe"; Parameters: "--login -c exit"; Description: 
 
 [Icons]
 Name: "{group}\Rtools 64-bit"; Filename: "{app}\mingw64.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
-Name: "{group}\Rtools UCRT 64-bit"; Filename: "{app}\ucrt64.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
+Name: "{group}\Rtools 64-bit UCRT"; Filename: "{app}\ucrt64.exe"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall
 Name: "{group}\Uninstall Rtools"; Filename: "{uninstallexe}"; Tasks: createStartMenu; Flags: excludefromshowinnewinstall; IconFilename: {sys}\Shell32.dll; IconIndex: 31
 
 [UninstallDelete]
