@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: Build installer
-    runs-on: windows-2019
+    runs-on: windows-2022
     steps:
       - uses: actions/checkout@v2
         with:
@@ -42,7 +42,7 @@ jobs:
         env:
           PfxUri: ${{ secrets.PFXURI }}
           CertPassword: ${{ secrets.CERTPASSWORD }}
-          SignTool: 'C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe'
+          SignTool: 'C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\x64\signtool.exe'
 
       - name: "Upload artifacts"
         uses: actions/upload-artifact@v2
